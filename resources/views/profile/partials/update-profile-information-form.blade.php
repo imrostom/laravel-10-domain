@@ -47,6 +47,18 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" autofocus autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
+
+        <div>
+            <x-input-label for="custom_domain" :value="__('Custom Domain')" />
+            <x-text-input id="custom_domain" name="custom_domain" type="text" class="mt-1 block w-full" :value="old('custom_domain', $user->custom_domain)" autofocus autocomplete="custom_domain" />
+            <x-input-error class="mt-2" :messages="$errors->get('custom_domain')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

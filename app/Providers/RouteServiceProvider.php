@@ -24,6 +24,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::pattern('domain', '[a-z0-9.\-]+');
+        parent::boot();
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
@@ -34,15 +37,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+                ->group(base_path('routes/sub-domain.php'));
 
 
             Route::middleware('web')
                 ->group(base_path('routes/domain.php'));
 
-
             Route::middleware('web')
-                ->group(base_path('routes/sub-domain.php'));
+                ->group(base_path('routes/web.php'));
         });
     }
 }
